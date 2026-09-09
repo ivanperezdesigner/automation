@@ -272,8 +272,14 @@ Ambas requieren cuenta en un tercero, y por eso no están puestas.
 - **La página sí enseña los casos del portafolio.** Decisión de Ivan del 2026-09-09.
   `prospection/` es puerta fría y por eso no lleva ninguno; la web es distinta, porque
   quien llega eligió venir y su siguiente pregunta es «¿y tú qué has hecho?». La sección
-  `#preuves` lleva las cifras reales y la mención *« Démonstration — géométrie fictive »*,
-  igual que el dossier.
+  `#preuves` lleva las cifras reales.
+- **Sin la mención *« Démonstration — géométrie fictive »*.** Decisión de Ivan del
+  2026-09-09, que extiende a la web la que ya tomó el 2026-09-01 para `presentation/`: esa
+  nota al pie es justo lo que impide que un lector tome una familia inventada por un
+  trabajo real. **El hecho no se pierde**, porque la entradilla de la sección lo dice en
+  voz más firme: *« des outils complets, passés de bout en bout sur une géométrie inventée
+  pour la démonstration »*. Se fue la nota, no la honestidad. El dossier del portafolio y
+  las páginas de cada caso **sí la conservan**.
 - **`#preuves` no lleva ninguna imagen de los casos 2 y 3.** Los planos, los DXF y las
   miniaturas salen de SOLIDWORKS Maker, y el `CLAUDE.md` de la raíz prohíbe usar material
   de Maker para promoción comercial. Recortar la marca de agua no es una opción. La

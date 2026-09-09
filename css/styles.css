@@ -396,10 +396,6 @@ html[data-lang="en"] [lang="fr"] { display: none !important; }
 }
 .case__limit strong { color: var(--ink); font-weight: 600; }
 
-.proof__note {
-  margin-top: 30px; font-size: 12px; letter-spacing: 0.04em; color: var(--text-faint);
-}
-
 /* ------------------------------------------------------------------- who */
 
 .who { margin-top: 132px; background: var(--graphite); color: var(--paper-mute); padding: 104px 0; }
