@@ -159,17 +159,27 @@ que se midio en el navegador.
 
 | Desde | Hasta | Qué cambia |
 |---|---|---|
-| 1440 px | — | Todo: menú completo y subtítulo « AUTOMATISATION SUR MESURE » bajo el nombre |
-| 1280 px | 1439 px | Cae el subtítulo. El menú sigue entero en una línea |
-| — | 1279 px | **Hamburguesa.** El menú se convierte en panel desplegable |
+| 1320 px | — | Menú completo en una línea |
+| — | 1319 px | **Hamburguesa.** El menú se convierte en panel desplegable |
 | — | 1180 px | Todo pasa a una columna **menos el hero**, que conserva dos |
 | — | 860 px | El hero también se apila. Gutter de 24 px, pestañas en vertical |
 
-**Por qué 1280 y no 1180.** El menú tiene seis elementos y se midió lo que ocupan de
-verdad: 782 px el menú, 256 px la marca con su subtítulo, 109 px el selector de idioma,
-más separaciones y márgenes. Total **1363 px**. Por eso a 1280 se partía cada elemento en
-dos y tres líneas. Sin el subtítulo baja a 1200 px, que sí cabe en 1280 con holgura. De ahí
-los dos umbrales: primero cae el subtítulo, después el menú.
+**Por qué 1320.** Se midió lo que ocupa el menú de verdad, a 1600 px y sin que nada se
+parta: **863 px** los seis elementos con el botón, **130 px** la marca, **109 px** el
+selector de idioma, más dos separaciones de 28 px y 160 px de gutter. Total **1318 px**.
+Por debajo de eso los elementos se partían en dos y tres líneas cada uno.
+
+**Por eso la cabecera ya no lleva el subtítulo « Automatisation sur mesure ».** Sumaba
+126 px y el conjunto pedía 1444 px, pero el contenido está topado a `--maxw: 1440`, así que
+el ancho útil de la cabecera nunca pasa de 1280 px por mucho que crezca la pantalla: **no
+cabía a ningún ancho**. La alternativa era acortar « Ce que nous avons construit », y se
+prefirió no tocar el texto.
+
+**Los objetivos táctiles no dependen solo del ancho.** La regla es
+`@media (max-width: 1319px), (pointer: coarse)`, porque una tableta de 1368 px es una
+pantalla táctil aunque sea ancha. La mitad de `pointer` no se puede comprobar en un
+navegador sin cabeza; está ahí porque el ancho por sí solo no identifica una pantalla
+táctil.
 
 **El hero mantiene dos columnas hasta 860 px.** Antes se apilaba a 1180 y en una tableta
 de 1024 la mitad derecha de la primera pantalla quedaba vacía, con la ilustración suelta
@@ -199,6 +209,12 @@ archivos son de un solo uso y **no se guardan en el repositorio**.
 
 Medido así, a 375, 415, 753 y 1009 px el `scrollWidth` es idéntico al ancho de la
 ventana: no hay desbordamiento horizontal en ninguno.
+
+**Un detalle que confunde al medir:** las *media queries* se evalúan **incluyendo** la
+barra de desplazamiento, mientras `document.documentElement.clientWidth` la **excluye**.
+Un iframe de 1320 px informa `clientWidth = 1305` pero sus media queries ven 1320, así que
+`max-width: 1319px` no entra. No es un fallo, pero explica por qué la medición y la regla
+CSS parecen contradecirse justo en el umbral.
 
 ## El barrido de los titulares
 
@@ -296,6 +312,20 @@ Ambas requieren cuenta en un tercero, y por eso no están puestas.
   recopier, revérifier y recommencer son simultáneos, no una secuencia. Ahora son tres
   columnas con un filete negro encima que crece al entrar. En `#preuves` los números sí se
   conservan, porque ahí sí hay tres casos distintos que enumerar.
+- **La página habla en primera persona del plural.** Decisión de Ivan del 2026-09-09:
+  « nous écrivons », « nous lisons », « Décrivez-nous la tâche ». Antes hablaba en
+  singular, a nombre propio.
+  - **Las preguntas del FAQ siguen en singular**, porque ahí quien habla es el visitante:
+    « Est-ce que **je** dois changer de logiciel ? », « Est-ce que **mes** fichiers sortent
+    de l'entreprise ? ». Cambiarlas habría hecho que el lector se preguntara por los
+    archivos de otro.
+  - El párrafo legal del pie **conserva el nombre en tercera persona** (« Ivan Perez
+    n'exerce aucune activité réservée »): es una declaración formal y nombrar a la persona
+    responsable es deseable, no un descuido.
+  - La sección `.who` perdió « Je m'appelle Ivan Perez » y su titular pasó de « Celui qui
+    lit votre plan est celui qui écrit l'outil » a « Nous lisons votre plan, et nous
+    écrivons l'outil ». **Es donde más se pierde**: el argumento original era justamente
+    que se trata de una sola persona. El nombre sigue en la cabecera, el pie y el contacto.
 - La marca **IP** en cuadrado es la misma propuesta que en `prospection/`, y sigue
   pendiente de la decisión de Ivan.
 
@@ -330,6 +360,10 @@ sirven archivos estáticos y ninguna necesita build para esta página.
   cada fotograma, y el acordeón necesita `max-height`. La barra de progreso sí se
   corrigió: ahora escala con `transform` en vez de cambiar de ancho, porque esa sí se
   repintaba en cada fotograma de scroll.
+- **El plural contradice « Ivan opera a nombre propio »**, la identidad registrada en
+  `fam_param/CLAUDE.md`. No inventa ninguna empresa ni ningún nombre comercial, y usar
+  « nous » siendo independiente es una convención corriente, pero la contradicción queda
+  anotada aquí en vez de resolverse en silencio.
 - **El caso 4 (anidado) no aparece.** Sigue abierto y no tiene resultados que enseñar.
   Cuando los tenga, entra como cuarto bloque de `#preuves` y las cifras de arriba suben a
   cinco columnas o se reagrupan.
