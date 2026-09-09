@@ -152,6 +152,54 @@ o no subirlo, y ahorrar esos 450 KB.
 Todos los efectos respetan `prefers-reduced-motion`. Si el JS no carga, la página se lee
 entera: los bloques no quedan invisibles y los paneles ocultos siguen siendo accesibles.
 
+## Los puntos de ruptura
+
+Revisados y medidos el 2026-09-09. No son redondos por gusto: cada uno sale de un ancho
+que se midio en el navegador.
+
+| Desde | Hasta | Qué cambia |
+|---|---|---|
+| 1440 px | — | Todo: menú completo y subtítulo « AUTOMATISATION SUR MESURE » bajo el nombre |
+| 1280 px | 1439 px | Cae el subtítulo. El menú sigue entero en una línea |
+| — | 1279 px | **Hamburguesa.** El menú se convierte en panel desplegable |
+| — | 1180 px | Todo pasa a una columna **menos el hero**, que conserva dos |
+| — | 860 px | El hero también se apila. Gutter de 24 px, pestañas en vertical |
+
+**Por qué 1280 y no 1180.** El menú tiene seis elementos y se midió lo que ocupan de
+verdad: 782 px el menú, 256 px la marca con su subtítulo, 109 px el selector de idioma,
+más separaciones y márgenes. Total **1363 px**. Por eso a 1280 se partía cada elemento en
+dos y tres líneas. Sin el subtítulo baja a 1200 px, que sí cabe en 1280 con holgura. De ahí
+los dos umbrales: primero cae el subtítulo, después el menú.
+
+**El hero mantiene dos columnas hasta 860 px.** Antes se apilaba a 1180 y en una tableta
+de 1024 la mitad derecha de la primera pantalla quedaba vacía, con la ilustración suelta
+debajo. Ahora la ilustración sigue al lado del titular, más pequeña.
+
+**Objetivos táctiles.** Por debajo de 1280 px cada enlace y cada botón mide al menos 44 px
+de alto. Los enlaces del pie medían 21 px, el correo 26 y el botón « Copier » 34.
+
+## Cómo se comprueba el responsive
+
+**Chrome sin cabeza miente por debajo de unos 500 px de ancho**: no reduce el viewport,
+renderiza más ancho y recorta la imagen. Una captura con `--window-size=390` enseña un
+titular cortado que en un teléfono real no está cortado. Costó una vuelta entera
+diagnosticar un desbordamiento que no existía.
+
+La forma fiable es cargar `index.html` dentro de un `<iframe>` del ancho que se quiere
+probar, servido por HTTP (con `file://` el navegador bloquea el acceso al DOM del iframe):
+
+```
+python -m http.server 8731
+```
+
+y una página de un solo uso con `<iframe width="390" src="index.html">`. Desde ella se
+miden `document.documentElement.scrollWidth` contra `clientWidth` para detectar
+desbordamientos, y la altura de cada `a` y `button` para los objetivos táctiles. Esos
+archivos son de un solo uso y **no se guardan en el repositorio**.
+
+Medido así, a 375, 415, 753 y 1009 px el `scrollWidth` es idéntico al ancho de la
+ventana: no hay desbordamiento horizontal en ninguno.
+
 ## El barrido de los titulares
 
 Es el único movimiento con autor de la página. Cada `<h1>` y `<h2>` lleva `data-wipe` y
