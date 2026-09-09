@@ -75,8 +75,8 @@ hay paso de build.** La única condición es subir la carpeta entera, porque las
 `index.html` referencia los estáticos con una marca de versión:
 
 ```html
-<link rel="stylesheet" href="css/styles.css?v=2026-09-09c">
-<script src="js/main.js?v=2026-09-09c"></script>
+<link rel="stylesheet" href="css/styles.css?v=2026-09-09d">
+<script src="js/main.js?v=2026-09-09d"></script>
 ```
 
 **Hay que subirla cada vez que cambie `styles.css` o `main.js`.** No es cosmética: se
@@ -313,6 +313,26 @@ Todo el camino `mailto:` — y con él el bloque de texto a copiar que existió 
 2026-09-09. Ese bloque resolvía un problema real (un navegador sin cliente de correo
 descarta un `mailto:` en silencio), pero Ivan lo quiso fuera: en una landing page el
 visitante espera escribir y darle a enviar, no copiar un texto a mano.
+
+### La trampa del atributo 
+
+**El atributo  solo trae  desde la hoja del navegador, y cualquier
+regla de autor con un  lo pisa.**  declaraba , así que
+el panel de confirmación **se publicó visible**, debajo del formulario, en una página recién
+cargada. Ivan lo vio en una ventana de incógnito el 2026-09-09.
+
+La hoja ya tenía el remedio dos veces —  y  — y no se
+siguió el patrón al añadir el panel nuevo. Ahora la regla es **una sola y global**, cerca
+del principio del archivo:
+
+
+
+Así no se puede olvidar en el siguiente elemento que se oculte desde el JS.
+
+**Y una nota sobre cómo comprobarlo:** leer  en la consola devuelve 
+aunque el elemento esté a la vista, porque informa del atributo, no de lo que pinta el
+navegador. La comprobación válida es  o .
+Esa confusión es la que dejó pasar el error.
 
 ### Los avisos guardan su idioma
 

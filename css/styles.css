@@ -101,6 +101,13 @@ p { margin: 0; text-wrap: pretty; }
 
 /* Lucide icons, inlined as a sprite (ISC licence) */
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* The hidden attribute only carries display:none from the browser sheet, so
+   any author rule with a display beats it. Every element toggled with .hidden
+   in main.js needs this, and stating it once means the next one cannot be
+   forgotten - which is exactly how the confirmation panel shipped visible on
+   2026-09-09. */
+[hidden] { display: none !important; }
 .ico {
   width: 18px; height: 18px; flex-shrink: 0;
   fill: none; stroke: currentColor; stroke-width: 2;
@@ -335,7 +342,6 @@ html[data-lang="en"] [lang="fr"] { display: none !important; }
 .tabs__body { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; margin-top: 48px; align-items: start; }
 .tabs__panels { position: relative; }
 .panel { display: flex; flex-direction: column; gap: 22px; }
-.panel[hidden] { display: none; }
 .panel.is-entering { animation: rise 460ms var(--ease-out) both; }
 
 .points { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -438,7 +444,6 @@ html[data-lang="en"] [lang="fr"] { display: none !important; }
 
 .steps__panels { background: var(--paper-soft); padding: 50px 52px; display: flex; align-items: center; }
 .spanel { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-.spanel[hidden] { display: none; }
 .spanel.is-entering { animation: rise 460ms var(--ease-out) both; }
 .tag { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; color: var(--accent); }
 
