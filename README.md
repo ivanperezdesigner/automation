@@ -314,25 +314,28 @@ Todo el camino `mailto:` — y con él el bloque de texto a copiar que existió 
 descarta un `mailto:` en silencio), pero Ivan lo quiso fuera: en una landing page el
 visitante espera escribir y darle a enviar, no copiar un texto a mano.
 
-### La trampa del atributo 
+### La trampa del atributo `hidden`
 
-**El atributo  solo trae  desde la hoja del navegador, y cualquier
-regla de autor con un  lo pisa.**  declaraba , así que
-el panel de confirmación **se publicó visible**, debajo del formulario, en una página recién
-cargada. Ivan lo vio en una ventana de incógnito el 2026-09-09.
+**El atributo `hidden` solo trae `display: none` desde la hoja del navegador, y cualquier
+regla de autor con un `display` lo pisa.** `.form__done` declaraba `display: flex`, así que
+el panel de confirmación **se publicó visible**, debajo del formulario, en una página
+recién cargada. Ivan lo vio en una ventana de incógnito el 2026-09-09.
 
-La hoja ya tenía el remedio dos veces —  y  — y no se
+La hoja ya llevaba el remedio dos veces — `.panel[hidden]` y `.spanel[hidden]` — y no se
 siguió el patrón al añadir el panel nuevo. Ahora la regla es **una sola y global**, cerca
 del principio del archivo:
 
+```css
+[hidden] { display: none !important; }
+```
 
+Así no se puede olvidar en el siguiente elemento que se oculte desde el JS. Las dos reglas
+por componente se retiraron, que ya no hacían falta.
 
-Así no se puede olvidar en el siguiente elemento que se oculte desde el JS.
-
-**Y una nota sobre cómo comprobarlo:** leer  en la consola devuelve 
-aunque el elemento esté a la vista, porque informa del atributo, no de lo que pinta el
-navegador. La comprobación válida es  o .
-Esa confusión es la que dejó pasar el error.
+**Y una nota sobre cómo comprobarlo.** Leer `elemento.hidden` en la consola devuelve
+`true` aunque el elemento esté a la vista: informa del atributo, no de lo que pinta el
+navegador. La comprobación válida es `getComputedStyle(el).display` o `el.offsetParent`.
+Esa confusión es la que dejó pasar el error hasta la página publicada.
 
 ### Los avisos guardan su idioma
 
