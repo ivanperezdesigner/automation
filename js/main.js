@@ -22,6 +22,9 @@
       needTask: "Décrivez la tâche en une phrase au moins.",
       missing: "Il manque encore quelque chose ci-dessus.",
       sent: "Votre logiciel de courriel s'ouvre avec le message prêt. Il ne part que quand vous l'envoyez.",
+      noClient: "Rien ne s'est ouvert : ce navigateur n'a pas de logiciel de courriel.",
+      copyMessage: "Message copié",
+      subjectLine: "Objet :",
       subject: "Une tâche à automatiser",
       greeting: "Bonjour Ivan,"
     },
@@ -38,6 +41,9 @@
       needTask: "Describe the task in at least one sentence.",
       missing: "Something is still missing above.",
       sent: "Your email program opens with the message ready. It only goes when you send it.",
+      noClient: "Nothing opened: this browser has no email program attached.",
+      copyMessage: "Message copied",
+      subjectLine: "Subject:",
       subject: "A task to automate",
       greeting: "Hello Ivan,"
     }
@@ -94,6 +100,7 @@
       try { window.localStorage.setItem("ip-lang", lang); } catch (error) { /* private mode */ }
     }
     refreshOpenAnswers();
+    refreshErrors();
   }
 
   langToggle.addEventListener("click", function () {
@@ -375,25 +382,57 @@
 
   var form = document.getElementById("contactForm");
   var note = document.getElementById("formNote");
+  var fallback = document.getElementById("formFallback");
+  var fallbackText = document.getElementById("formFallbackText");
+  var fallbackOpened = document.getElementById("fallbackOpened");
+  var fallbackNone = document.getElementById("fallbackNone");
   var mailTo = "joseivanperezdiaz1@gmail.com";
 
-  function showError(input, message) {
+  function showError(input, key) {
     var field = input.closest(".field");
     var slot = field.querySelector(".error");
     field.classList.add("has-error");
-    if (slot) { slot.textContent = message; }
+    if (slot) {
+      slot.setAttribute("data-error-key", key);
+      slot.textContent = t(key);
+    }
   }
 
   function clearError(input) {
     var field = input.closest(".field");
     var slot = field.querySelector(".error");
     field.classList.remove("has-error");
-    if (slot) { slot.textContent = ""; }
+    if (slot) {
+      slot.removeAttribute("data-error-key");
+      slot.textContent = "";
+    }
   }
 
-  function showNote(message, ok) {
+  /* An error slot holds one language at a time, so it is rewritten when the
+     visitor switches. Notes do not need this: each one carries both
+     languages in its own spans and the stylesheet hides the wrong one. */
+  function refreshErrors() {
+    var slots = document.querySelectorAll(".error[data-error-key]");
+    Array.prototype.forEach.call(slots, function (slot) {
+      slot.textContent = t(slot.getAttribute("data-error-key"));
+    });
+  }
+
+  /* Writing to note.textContent would delete the two <span lang> children
+     and leave the note stuck in whichever language was current. */
+  function showNote(key, ok) {
     note.classList.toggle("is-ok", !!ok);
-    note.textContent = message;
+    Array.prototype.forEach.call(note.querySelectorAll("span[lang]"), function (slot) {
+      slot.textContent = STRINGS[slot.getAttribute("lang") === "en" ? "en" : "fr"][key];
+    });
+  }
+
+  function revealFallback(text, opened) {
+    if (!fallback) { return; }
+    fallbackText.value = text;
+    fallbackOpened.hidden = !opened;
+    fallbackNone.hidden = opened;
+    fallback.hidden = false;
   }
 
   if (form) {
@@ -412,12 +451,12 @@
 
       [name, email, task].forEach(clearError);
 
-      if (!name.value.trim()) { showError(name, t("needName")); problems.push(name); }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { showError(email, t("needMail")); problems.push(email); }
-      if (task.value.trim().length < 10) { showError(task, t("needTask")); problems.push(task); }
+      if (!name.value.trim()) { showError(name, "needName"); problems.push(name); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { showError(email, "needMail"); problems.push(email); }
+      if (task.value.trim().length < 10) { showError(task, "needTask"); problems.push(task); }
 
       if (problems.length) {
-        showNote(t("missing"), false);
+        showNote("missing", false);
         problems[0].focus();
         return;
       }
@@ -434,11 +473,48 @@
         email.value.trim()
       ].filter(function (line) { return line !== ""; }).join("\r\n");
 
+      /* A browser with no mail handler drops a mailto: without a word: no
+         error, no dialog, nothing at all, so the button reads as broken.
+         Losing focus is the only sign a client really opened. Either way the
+         message goes on the page, and the lead says which happened. */
+      var opened = false;
+      function markOpened() { opened = true; }
+      window.addEventListener("blur", markOpened, { once: true });
+
       window.location.href = "mailto:" + mailTo +
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
 
-      showNote(t("sent"), true);
+      window.setTimeout(function () {
+        window.removeEventListener("blur", markOpened);
+        if (document.visibilityState === "hidden") { opened = true; }
+        showNote(opened ? "sent" : "noClient", opened);
+        revealFallback(t("subjectLine") + " " + subject + "\r\n\r\n" + body, opened);
+      }, 1500);
+    });
+  }
+
+  /* --------------------------------------------------- copy the message */
+
+  var copyMessage = document.getElementById("copyMessage");
+
+  if (copyMessage) {
+    var msgLabels = copyMessage.querySelectorAll(".copy__label");
+    var msgOriginals = Array.prototype.map.call(msgLabels, function (node) { return node.textContent; });
+
+    copyMessage.addEventListener("click", function () {
+      var done = function () {
+        Array.prototype.forEach.call(msgLabels, function (node) { node.textContent = t("copyMessage"); });
+        window.setTimeout(function () {
+          Array.prototype.forEach.call(msgLabels, function (node, index) { node.textContent = msgOriginals[index]; });
+        }, 2000);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fallbackText.value).then(done, function () { fallbackText.select(); });
+      } else {
+        fallbackText.select();
+      }
     });
   }
 

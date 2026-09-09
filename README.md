@@ -252,8 +252,38 @@ el JS valida y construye un `mailto:` con el asunto y el cuerpo ya redactados: s
 cliente de correo del visitante y el mensaje **no sale hasta que él lo envía**. Eso está
 dicho debajo del botón.
 
-Es la única opción que funciona en un hosting estático sin dar de alta ningún servicio ni
-exponer una clave. Si más adelante se quiere recepción directa, se cambia una sola línea:
+### El `mailto:` no basta solo
+
+**Un navegador sin cliente de correo asociado descarta un `mailto:` en silencio**: ni
+error, ni diálogo, ni nada. El botón se lee como roto. Es lo normal en Windows 11 cuando
+se usa Gmail en el navegador y nunca se instaló Outlook. Ivan lo reportó el 2026-09-09 y
+se reprodujo en la página publicada.
+
+El arreglo no cambia el mecanismo, le añade una salida:
+
+1. Se dispara el `mailto:` como antes.
+2. **Perder el foco de la ventana es la única señal** de que un cliente abrió de verdad.
+   A los 1500 ms se comprueba, contando también `document.visibilityState`.
+3. **El mensaje aparece en la página en los dos casos**, en un `<textarea>` de solo
+   lectura con un botón de copiar. Lo único que cambia es la entradilla: *« Si rien ne
+   s'est ouvert… »* cuando sí abrió, *« Ce navigateur n'a pas de logiciel de courriel »*
+   cuando no.
+
+Así el visitante que estaba listo para escribir nunca se queda sin camino, que en una
+página de puerta fría es justo el que no se puede perder.
+
+### Los avisos guardan su idioma
+
+`showNote` escribía en `note.textContent`, lo que **borraba los dos `<span lang>`** de
+`#formNote`. Tras el primer envío la nota quedaba en un solo idioma y el selector ya no
+la alcanzaba. Ahora escribe dentro de cada span, uno por idioma. Los `.error` de cada
+campo sí son de un solo idioma por construcción: llevan un `data-error-key` y
+`refreshErrors()` los repinta cuando se cambia de idioma.
+
+### Si algún día se quiere recepción directa
+
+Sin servidor detrás no hay más opciones que esta sin dar de alta un servicio ni exponer
+una clave. Si se quiere, se cambia una sola línea:
 
 - **Formspree** — `<form action="https://formspree.io/f/XXXX" method="POST">` y quitar el
   `event.preventDefault()` del envío.
@@ -335,9 +365,19 @@ Ambas requieren cuenta en un tercero, y por eso no están puestas.
 - La marca **IP** en cuadrado es la misma propuesta que en `prospection/`, y sigue
   pendiente de la decisión de Ivan.
 
-## Dónde alojarla
+## Dónde está alojada
 
-Recomendación: **Cloudflare Pages**. Gratis sin caducidad, sin tarjeta, HTTPS y CDN
+**GitHub Pages, en <https://ivanperezdesigner.github.io/automation/>**, servida desde el
+repositorio `ivanperezdesigner/automation`. La carpeta `site/` **es** ese repositorio, así
+que **cada `git push` a `main` publica**. No hay build ni paso intermedio.
+
+El intento anterior en Cloudflare Workers (`automat.joseivanperezdiaz1.workers.dev`)
+**devuelve 404** y quedó abandonado. Si no se va a usar, conviene borrarlo para que no
+quede un enlace muerto circulando.
+
+### Alternativas, si alguna vez se cambia
+
+Recomendación anterior: **Cloudflare Pages**. Gratis sin caducidad, sin tarjeta, HTTPS y CDN
 incluidos, y da un subdominio del tipo `ivan-perez.pages.dev`. Se sube arrastrando la
 carpeta `site/` en el panel, o conectando un repositorio. Cuando exista un dominio propio,
 se apunta desde el mismo panel sin rehacer nada.

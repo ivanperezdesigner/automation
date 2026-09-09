@@ -500,6 +500,21 @@ html[data-lang="en"] [lang="fr"] { display: none !important; }
 .form__note { font-size: 12px; line-height: 1.55; color: var(--text-dark-mute); }
 .form__note.is-ok { color: var(--accent-light); }
 
+/* The message stays on the page when the browser has nowhere to hand a
+   mailto:, so the visitor can still copy it out. */
+.form__fallback {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-top: 4px; padding-top: 20px; border-top: 1px solid var(--line-dark);
+}
+.form__fallback-lead { font-size: 12px; line-height: 1.55; color: var(--text-dark-mute); }
+.form__fallback-lead b { color: var(--paper-mute); font-weight: 600; }
+.form__fallback-text {
+  font-family: inherit; font-size: 14px; line-height: 1.5; color: var(--paper-mute);
+  background: #242424; border: 1px solid var(--line-dark); padding: 14px 16px;
+  resize: vertical; width: 100%;
+}
+.form__fallback-text:focus { outline: 0; border-color: var(--accent-light); }
+
 /* ------------------------------------------------------------------ foot */
 
 .foot { background: var(--graphite-deep); color: var(--text-dark); padding: 60px 0 30px; }

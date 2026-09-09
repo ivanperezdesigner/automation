@@ -612,6 +612,23 @@
           <span lang="fr">Le bouton ouvre votre logiciel de courriel avec le message d&eacute;j&agrave; r&eacute;dig&eacute;. Rien n&rsquo;est envoy&eacute; sans que vous le voyiez.</span>
           <span lang="en">The button opens your email program with the message already written. Nothing is sent without you seeing it.</span>
         </p>
+
+        <div class="form__fallback" id="formFallback" hidden>
+          <p class="form__fallback-lead" id="fallbackOpened" hidden>
+            <span lang="fr">Si rien ne s&rsquo;est ouvert, voici le message. Copiez-le et envoyez-le &agrave; <b>joseivanperezdiaz1@gmail.com</b>.</span>
+            <span lang="en">If nothing opened, here is the message. Copy it and send it to <b>joseivanperezdiaz1@gmail.com</b>.</span>
+          </p>
+          <p class="form__fallback-lead" id="fallbackNone" hidden>
+            <span lang="fr">Ce navigateur n&rsquo;a pas de logiciel de courriel associ&eacute;. Voici le message&nbsp;: copiez-le et envoyez-le &agrave; <b>joseivanperezdiaz1@gmail.com</b>.</span>
+            <span lang="en">This browser has no email program attached. Here is the message: copy it and send it to <b>joseivanperezdiaz1@gmail.com</b>.</span>
+          </p>
+          <textarea class="form__fallback-text" id="formFallbackText" rows="9" readonly></textarea>
+          <button class="btn btn--mini btn--block" id="copyMessage" type="button">
+            <span class="copy__label" lang="fr">Copier le message</span>
+            <span class="copy__label" lang="en">Copy the message</span>
+            <svg class="ico" aria-hidden="true"><use href="#i-copy"></use></svg>
+          </button>
+        </div>
       </form>
     </div>
   </section>
