@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="fr-CA" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ivan Perez — Automatiser ce qui vous ralentit</title>
+<meta name="description" content="J'écris des outils sur mesure pour les tâches que votre équipe refait à la main : lecture de vos fichiers, application de vos règles, génération des documents. FR/EN.">
+<meta name="author" content="Ivan Perez">
+<meta property="og:title" content="Ivan Perez — Automatiser ce qui vous ralentit">
+<meta property="og:description" content="La tâche que vous refaites chaque semaine, j'en fais un outil. Sur votre réseau, avec vos fichiers.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lucide icons (ISC licence) -->
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+  <symbol id="i-languages" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+</svg>
+
+<div class="progress" aria-hidden="true"><span class="progress__bar" id="progressBar"></span></div>
+
+<a class="skip" href="#hero"><span lang="fr">Aller au contenu</span><span lang="en">Skip to content</span></a>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="#hero">
+      <span class="mark">IP</span>
+      <span class="nav__name">
+        <strong>Ivan Perez</strong>
+        <em lang="fr">Automatisation sur mesure</em>
+        <em lang="en">Custom automation</em>
+      </span>
+    </a>
+
+    <nav class="nav__menu" id="navMenu" aria-label="Navigation">
+      <a href="#probleme"><span lang="fr">Le probl&egrave;me</span><span lang="en">The problem</span></a>
+      <a href="#faire"><span lang="fr">Ce que je fais</span><span lang="en">What I do</span></a>
+      <a href="#preuves"><span lang="fr">Ce que j&rsquo;ai construit</span><span lang="en">What I have built</span></a>
+      <a href="#demarche"><span lang="fr">La d&eacute;marche</span><span lang="en">How it works</span></a>
+      <a href="#questions"><span lang="fr">Questions</span><span lang="en">Questions</span></a>
+      <a class="btn btn--solid nav__cta" href="#contact">
+        <span lang="fr">Parlons trente minutes</span><span lang="en">Let&rsquo;s talk for thirty minutes</span>
+      </a>
+    </nav>
+
+    <div class="nav__tools">
+      <button class="lang" id="langToggle" type="button" aria-label="English">
+        <svg class="ico" aria-hidden="true"><use href="#i-languages"></use></svg>
+        <span class="lang__pair"><b>FR</b><i>/</i><s>EN</s></span>
+      </button>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero__grid">
+        <div class="hero__text">
+          <h1 lang="fr" data-wipe>La t&acirc;che que vous refaites chaque semaine, <br><span class="boxed">j&rsquo;en fais un outil.</span></h1>
+          <h1 lang="en" data-wipe>The task you redo every single week, <br><span class="boxed">I turn it into a tool.</span></h1>
+
+          <div class="hero__lead" data-reveal>
+            <p class="lead" lang="fr">J&rsquo;&eacute;cris des outils sur mesure pour les PME. Je lis vos fichiers tels qu&rsquo;ils sont, j&rsquo;applique vos r&egrave;gles, et je vous rends les documents finis. Sans logiciel &agrave; acheter et sans rien &agrave; migrer.</p>
+            <p class="lead" lang="en">I write custom tools for small companies. I read your files exactly as they are, apply your rules, and hand back the finished documents. No software to buy, nothing to migrate.</p>
+          </div>
+
+          <div class="hero__actions" data-reveal>
+            <a class="btn btn--solid btn--lg" href="#contact">
+              <span lang="fr">D&eacute;crivez-moi la t&acirc;che</span><span lang="en">Tell me about the task</span>
+              <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="#preuves">
+              <span lang="fr">Voir ce que j&rsquo;ai construit</span><span lang="en">See what I have built</span>
+            </a>
+          </div>
+        </div>
+
+        <figure class="art" id="heroArt" data-reveal aria-hidden="true">
+          <object class="art__svg" type="image/svg+xml" data="img/workflow.svg">
+            <img src="img/workflow.svg" alt="" width="900" height="900">
+          </object>
+        </figure>
+      </div>
+
+      <ul class="hero__points" data-reveal>
+        <li><svg class="ico ico--accent" aria-hidden="true"><use href="#i-check"></use></svg>
+          <span lang="fr">L&rsquo;outil tourne <strong>sur votre r&eacute;seau</strong>. Vos documents ne sortent pas.</span>
+          <span lang="en">The tool runs <strong>on your own network</strong>. Your documents stay in-house.</span>
+        </li>
+        <li><svg class="ico ico--accent" aria-hidden="true"><use href="#i-check"></use></svg>
+          <span lang="fr">Le premier &eacute;change est <strong>gratuit et sans engagement</strong>.</span>
+          <span lang="en">The first conversation is <strong>free, with nothing to commit to</strong>.</span>
+        </li>
+        <li><svg class="ico ico--accent" aria-hidden="true"><use href="#i-check"></use></svg>
+          <span lang="fr">Documents produits <strong>en fran&ccedil;ais, en anglais</strong>, ou dans les deux.</span>
+          <span lang="en">Documents produced <strong>in French, in English</strong>, or in both.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <div class="marquee__group">
+        <span>PDF</span><i>&bull;</i><span>Excel</span><i>&bull;</i><span lang="fr">Bases de donn&eacute;es</span><span lang="en">Databases</span><i>&bull;</i><span>DXF</span><i>&bull;</i><span lang="fr">Mod&egrave;les CAO</span><span lang="en">CAD models</span><i>&bull;</i><span lang="fr">Fiches techniques</span><span lang="en">Datasheets</span><i>&bull;</i><span lang="fr">Plans</span><span lang="en">Drawings</span><i>&bull;</i><span lang="fr">Catalogues</span><span lang="en">Catalogues</span><i>&bull;</i><span lang="fr">Rapports</span><span lang="en">Reports</span><i>&bull;</i>
+      </div>
+      <div class="marquee__group">
+        <span>PDF</span><i>&bull;</i><span>Excel</span><i>&bull;</i><span lang="fr">Bases de donn&eacute;es</span><span lang="en">Databases</span><i>&bull;</i><span>DXF</span><i>&bull;</i><span lang="fr">Mod&egrave;les CAO</span><span lang="en">CAD models</span><i>&bull;</i><span lang="fr">Fiches techniques</span><span lang="en">Datasheets</span><i>&bull;</i><span lang="fr">Plans</span><span lang="en">Drawings</span><i>&bull;</i><span lang="fr">Catalogues</span><span lang="en">Catalogues</span><i>&bull;</i><span lang="fr">Rapports</span><span lang="en">Reports</span><i>&bull;</i>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <figure class="media media--wide" data-reveal>
+      <img src="img/atelier.jpg" alt="" data-parallax width="1800" height="620">
+    </figure>
+  </div>
+
+  <section class="section" id="probleme">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div class="head__left">
+          <h2 lang="fr" data-wipe>Vous la reconna&icirc;trez &agrave; trois signes.</h2>
+          <h2 lang="en" data-wipe>You will know it by three signs.</h2>
+        </div>
+        <div class="head__right">
+          <p lang="fr">Personne ne l&rsquo;a choisie. Elle s&rsquo;est install&eacute;e, un peu plus chaque ann&eacute;e, et aujourd&rsquo;hui elle passe pour du travail normal.</p>
+          <p lang="en">Nobody chose it. It settled in, a little more every year, and by now it passes for normal work.</p>
+        </div>
+      </div>
+
+      <div class="signs">
+        <article class="sign" data-reveal>
+          <h3 lang="fr">On recopie</h3>
+          <h3 lang="en">Somebody retypes</h3>
+          <p lang="fr">Les m&ecirc;mes valeurs passent d&rsquo;un syst&egrave;me &agrave; l&rsquo;autre &agrave; la main. Un fichier, un devis, une fiche &mdash; toujours retap&eacute;s.</p>
+          <p lang="en">The same values move from one system to another by hand. A file, a quote, a datasheet &mdash; always retyped.</p>
+          <p class="sign__end" lang="fr">Le temps part, et il ne se facture &agrave; personne.</p>
+          <p class="sign__end" lang="en">The time goes, and nobody gets billed for it.</p>
+        </article>
+        <article class="sign" data-reveal>
+          <h3 lang="fr">On rev&eacute;rifie</h3>
+          <h3 lang="en">Somebody double-checks</h3>
+          <p lang="fr">Parce qu&rsquo;une erreur de saisie co&ucirc;te plus cher que la saisie elle-m&ecirc;me. Alors quelqu&rsquo;un relit tout, deux fois.</p>
+          <p lang="en">Because a typo costs more than the typing itself. So somebody proofreads the lot, twice.</p>
+          <p class="sign__end" lang="fr">Et la relecture, elle aussi, peut laisser passer.</p>
+          <p class="sign__end" lang="en">And the proofreading, too, can let one through.</p>
+        </article>
+        <article class="sign" data-reveal>
+          <h3 lang="fr">On recommence</h3>
+          <h3 lang="en">Somebody starts over</h3>
+          <p lang="fr">Une sp&eacute;cification change, et tout le paquet repasse &agrave; la main. Chaque nouveau produit ajoute un tour de plus.</p>
+          <p lang="en">One spec changes and the whole batch goes through by hand again. Every new product adds another round.</p>
+          <p class="sign__end" lang="fr">Le travail grandit plus vite que l&rsquo;&eacute;quipe.</p>
+          <p class="sign__end" lang="en">The work grows faster than the team does.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap band__grid">
+      <div class="band__text" data-reveal>
+        <h2 lang="fr" data-wipe>Elle n&rsquo;appara&icirc;t sur aucune facture. <br>C&rsquo;est bien le probl&egrave;me.</h2>
+        <h2 lang="en" data-wipe>It appears on no invoice. <br>That is exactly the problem.</h2>
+        <p class="lead" lang="fr">Elle se paie ailleurs&#8239;: en heures qui ne se facturent pas, en erreurs qu&rsquo;on rattrape trop tard, en r&eacute;ponses qui arrivent apr&egrave;s le concurrent. Et elle grandit avec vous.</p>
+        <p class="lead" lang="en">It gets paid elsewhere: in hours that never get billed, in mistakes caught too late, in answers that arrive after the competitor&rsquo;s. And it grows along with you.</p>
+        <p class="pull" lang="fr">On continue &agrave; la main parce que le rem&egrave;de a l&rsquo;air plus cher que le mal. <em>Ce calcul est juste &mdash; jusqu&rsquo;au jour o&ugrave; il ne l&rsquo;est plus.</em></p>
+        <p class="pull" lang="en">The work stays manual because the cure looks dearer than the disease. <em>That calculation is right &mdash; until the day it isn&rsquo;t.</em></p>
+      </div>
+      <figure class="media media--dark" data-reveal>
+        <img src="img/documents.jpg" alt="" width="1100" height="1400">
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="faire">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <div class="head__left">
+          <h2 lang="fr" data-wipe>Quatre gestes, toujours les m&ecirc;mes.</h2>
+          <h2 lang="en" data-wipe>Four moves, always the same ones.</h2>
+        </div>
+        <div class="head__right">
+          <p lang="fr">L&rsquo;outil change &agrave; chaque client. La m&eacute;canique, elle, ne bouge pas &mdash; c&rsquo;est ce qui permet de commencer petit.</p>
+          <p lang="en">The tool changes with every client. The mechanics do not &mdash; and that is what makes it possible to start small.</p>
+        </div>
+      </div>
+
+      <div class="tabs" data-reveal>
+        <div class="tabs__bar" role="tablist">
+          <button class="tab is-active" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true" data-tab="0">
+            <i>01</i><span lang="fr">Lire</span><span lang="en">Read</span>
+          </button>
+          <button class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" data-tab="1">
+            <i>02</i><span lang="fr">Appliquer vos r&egrave;gles</span><span lang="en">Apply your rules</span>
+          </button>
+          <button class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" data-tab="2">
+            <i>03</i><span lang="fr">G&eacute;n&eacute;rer</span><span lang="en">Generate</span>
+          </button>
+          <button class="tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" data-tab="3">
+            <i>04</i><span lang="fr">Rendre des comptes</span><span lang="en">Report back</span>
+          </button>
+        </div>
+
+        <div class="tabs__body">
+          <div class="tabs__panels">
+            <div class="panel is-active" role="tabpanel" id="panel-0" aria-labelledby="tab-0" data-panel="0">
+              <h3 lang="fr">Lire ce que vous avez d&eacute;j&agrave;</h3>
+              <h3 lang="en">Read what you already have</h3>
+              <p class="lead" lang="fr">L&rsquo;outil ouvre vos fichiers tels qu&rsquo;ils sont. Aucun format &agrave; changer, aucune donn&eacute;e &agrave; ressaisir, aucun syst&egrave;me &agrave; remplacer.</p>
+              <p class="lead" lang="en">The tool opens your files as they are. No format to change, no data to retype, no system to replace.</p>
+              <ul class="points" lang="fr">
+                <li>PDF, Excel, bases de donn&eacute;es, DXF, mod&egrave;les CAO</li>
+                <li>Ce qu&rsquo;il n&rsquo;arrive pas &agrave; lire, il le signale au lieu de deviner</li>
+                <li>Vos fichiers restent l&agrave; o&ugrave; ils sont</li>
+              </ul>
+              <ul class="points" lang="en">
+                <li>PDF, Excel, databases, DXF, CAD models</li>
+                <li>What it cannot read, it flags instead of guessing</li>
+                <li>Your files stay exactly where they are</li>
+              </ul>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" data-panel="1" hidden>
+              <h3 lang="fr">Appliquer les r&egrave;gles que personne n&rsquo;a &eacute;crites</h3>
+              <h3 lang="en">Apply the rules nobody ever wrote down</h3>
+              <p class="lead" lang="fr">Chaque atelier a ses r&egrave;gles&#8239;: ce qui se combine, ce qui ne se combine pas, ce qui demande une v&eacute;rification. On les &eacute;crit une fois, l&rsquo;outil les applique &agrave; chaque passage.</p>
+              <p class="lead" lang="en">Every shop has its rules: what goes together, what does not, what needs a second look. We write them down once and the tool applies them on every run.</p>
+              <ul class="points" lang="fr">
+                <li>Une combinaison refus&eacute;e dit pourquoi elle l&rsquo;est</li>
+                <li>Les r&egrave;gles se modifient sans reprendre l&rsquo;outil</li>
+                <li>La m&ecirc;me r&egrave;gle vaut pour tout le monde, tout le temps</li>
+              </ul>
+              <ul class="points" lang="en">
+                <li>A rejected combination says why it was rejected</li>
+                <li>Rules can change without rewriting the tool</li>
+                <li>The same rule applies to everyone, every time</li>
+              </ul>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" data-panel="2" hidden>
+              <h3 lang="fr">G&eacute;n&eacute;rer les documents finis</h3>
+              <h3 lang="en">Generate the finished documents</h3>
+              <p class="lead" lang="fr">Fiches techniques, plans, exports, catalogues &mdash; produits &agrave; partir d&rsquo;une seule source, dans la mise en page que vos clients connaissent d&eacute;j&agrave;.</p>
+              <p class="lead" lang="en">Datasheets, drawings, exports, catalogues &mdash; produced from a single source, in the layout your customers already know.</p>
+              <ul class="points" lang="fr">
+                <li>En fran&ccedil;ais, en anglais, ou dans les deux</li>
+                <li>Ajouter une langue, c&rsquo;est un dictionnaire, pas un red&eacute;marrage</li>
+                <li>Une seule source&#8239;: plus de version qui tra&icirc;ne</li>
+              </ul>
+              <ul class="points" lang="en">
+                <li>In French, in English, or in both</li>
+                <li>Adding a language is a dictionary, not a rebuild</li>
+                <li>One single source: no stray version left behind</li>
+              </ul>
+            </div>
+
+            <div class="panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" data-panel="3" hidden>
+              <h3 lang="fr">Rendre un r&eacute;sultat v&eacute;rifiable</h3>
+              <h3 lang="en">Hand back a result you can check</h3>
+              <p class="lead" lang="fr">Chaque passage laisse un rapport&#8239;: ce qui a &eacute;t&eacute; produit, ce qui a &eacute;t&eacute; refus&eacute; et pourquoi, ce que l&rsquo;outil n&rsquo;a pas su lire. Vous gardez la d&eacute;cision.</p>
+              <p class="lead" lang="en">Every run leaves a report: what was produced, what was rejected and why, what the tool could not read. You keep the decision.</p>
+              <ul class="points" lang="fr">
+                <li>Rien n&rsquo;est publi&eacute; sans que vous l&rsquo;ayez vu</li>
+                <li>Les refus sont motiv&eacute;s, pas silencieux</li>
+                <li>Le rapport se relit six mois plus tard</li>
+              </ul>
+              <ul class="points" lang="en">
+                <li>Nothing goes out before you have seen it</li>
+                <li>Rejections come with a reason, never silent</li>
+                <li>The report still reads six months later</li>
+              </ul>
+            </div>
+          </div>
+
+          <figure class="media media--tall">
+            <img src="img/code.jpg" alt="" width="1100" height="1400">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof" id="preuves">
+    <div class="wrap">
+      <div class="proof__head" data-reveal>
+        <h2 lang="fr" data-wipe>Trois outils d&eacute;j&agrave; &eacute;crits, <br>du premier fichier au dernier document.</h2>
+        <h2 lang="en" data-wipe>Three tools already written, <br>from the first file to the last document.</h2>
+        <p class="lead" lang="fr">Pas des maquettes&#8239;: des outils complets, pass&eacute;s de bout en bout sur une g&eacute;om&eacute;trie invent&eacute;e pour la d&eacute;monstration. Les chiffres ci-dessous sont ceux des fichiers r&eacute;ellement produits.</p>
+        <p class="lead" lang="en">Not mock-ups: complete tools, run end to end on geometry invented for the demonstration. The figures below are the files actually produced.</p>
+      </div>
+
+      <div class="figures" data-reveal>
+        <div class="fig">
+          <span class="fig__n" data-count="70">70</span>
+          <span class="fig__l" lang="fr">variantes valid&eacute;es</span>
+          <span class="fig__l" lang="en">validated variants</span>
+        </div>
+        <div class="fig">
+          <span class="fig__n" data-count="140">140</span>
+          <span class="fig__l" lang="fr">DXF de d&eacute;coupe</span>
+          <span class="fig__l" lang="en">cutting DXF files</span>
+        </div>
+        <div class="fig">
+          <span class="fig__n" data-count="210">210</span>
+          <span class="fig__l" lang="fr">fiches techniques</span>
+          <span class="fig__l" lang="en">datasheets</span>
+        </div>
+        <div class="fig">
+          <span class="fig__n" data-count="3">3</span>
+          <span class="fig__l" lang="fr">langues, une seule source</span>
+          <span class="fig__l" lang="en">languages, one single source</span>
+        </div>
+      </div>
+
+      <ol class="cases">
+        <li class="case" data-reveal>
+          <div class="case__id"><span>01</span></div>
+          <div class="case__body">
+            <h3 lang="fr">Le plan arrive en PDF, le rapport d&rsquo;inspection en sort rempli</h3>
+            <h3 lang="en">The drawing comes in as a PDF, the inspection report comes out filled in</h3>
+            <p lang="fr">L&rsquo;outil ouvre le plan export&eacute;, num&eacute;rote chaque cote, chaque tol&eacute;rance et chaque note, dessine les bulles sur le plan, et rend le tableau d&rsquo;inspection pr&ecirc;t &agrave; remplir &mdash; dans une forme inspir&eacute;e du formulaire AS9102.</p>
+            <p lang="en">The tool opens the exported drawing, numbers every dimension, tolerance and note, draws the balloons onto the drawing, and hands back the inspection table ready to fill in &mdash; in a form inspired by the AS9102 sheet.</p>
+            <p class="case__limit" lang="fr"><strong>Sans licence CAO.</strong> Il travaille sur le PDF, quel que soit le logiciel d&rsquo;origine. Ce qu&rsquo;il ne sait pas lire &mdash; le sigle &Oslash;, les cadres GD&amp;T &mdash; il le signale au lieu de l&rsquo;inventer.</p>
+            <p class="case__limit" lang="en"><strong>No CAD licence needed.</strong> It works on the PDF, whatever software produced it. What it cannot read &mdash; the &Oslash; sign, GD&amp;T frames &mdash; it flags rather than inventing.</p>
+          </div>
+        </li>
+
+        <li class="case" data-reveal>
+          <div class="case__id"><span>02</span></div>
+          <div class="case__body">
+            <h3 lang="fr">Une famille de pi&egrave;ces, document&eacute;e en entier</h3>
+            <h3 lang="en">A whole family of parts, documented end to end</h3>
+            <p lang="fr">108 combinaisons demand&eacute;es, trois r&egrave;gles &eacute;crites une fois, <strong>70 variantes retenues</strong>. Chacune sort avec son mod&egrave;le, ses deux DXF, son plan et son code QR &mdash; 140 DXF et 70 plans, produits en s&eacute;rie.</p>
+            <p lang="en">108 combinations asked for, three rules written once, <strong>70 variants kept</strong>. Each one comes out with its model, its two DXF files, its drawing and its QR code &mdash; 140 DXF files and 70 drawings, produced in one batch.</p>
+            <p class="case__limit" lang="fr"><strong>Les 38 refus&eacute;es disent pourquoi.</strong> Et quand un facteur K change, ce sont les d&eacute;velopp&eacute;s qui bougent &mdash; les DXF et la masse &mdash; pas la pi&egrave;ce pli&eacute;e. L&rsquo;outil le dit, plut&ocirc;t que de tout r&eacute;g&eacute;n&eacute;rer en silence.</p>
+            <p class="case__limit" lang="en"><strong>The 38 rejected ones say why.</strong> And when a K-factor changes, it is the flat patterns that move &mdash; the DXF files and the mass &mdash; not the folded part. The tool says so, rather than regenerating everything silently.</p>
+          </div>
+        </li>
+
+        <li class="case" data-reveal>
+          <div class="case__id"><span>03</span></div>
+          <div class="case__body">
+            <h3 lang="fr">La m&ecirc;me source, en trois langues, sans rouvrir la CAO</h3>
+            <h3 lang="en">The same source, in three languages, without reopening the CAD</h3>
+            <p lang="fr">210 fiches techniques et trois catalogues, produits depuis la base de donn&eacute;es de la famille pr&eacute;c&eacute;dente, lue sans y toucher. Fran&ccedil;ais, anglais, espagnol&#8239;: 70 r&eacute;f&eacute;rences, trois fois.</p>
+            <p lang="en">210 datasheets and three catalogues, produced from the previous family&rsquo;s database, read without touching it. French, English, Spanish: 70 references, three times over.</p>
+            <p class="case__limit" lang="fr"><strong>Une quatri&egrave;me langue, c&rsquo;est un dictionnaire.</strong> Les messages de l&rsquo;outil sont des cl&eacute;s, pas des phrases&#8239;: on traduit la liste, pas le programme.</p>
+            <p class="case__limit" lang="en"><strong>A fourth language is a dictionary.</strong> The tool&rsquo;s messages are keys, not sentences: you translate the list, not the program.</p>
+          </div>
+        </li>
+      </ol>
+
+      <p class="proof__note" data-reveal>
+        <span lang="fr">D&eacute;monstration &mdash; g&eacute;om&eacute;trie fictive. Les pi&egrave;ces, les familles et les r&eacute;f&eacute;rences ont &eacute;t&eacute; invent&eacute;es pour ces trois d&eacute;monstrations.</span>
+        <span lang="en">Demonstration &mdash; fictional geometry. The parts, families and part numbers were invented for these three demonstrations.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="who">
+    <div class="wrap who__grid">
+      <div class="who__text" data-reveal>
+        <h2 lang="fr" data-wipe>Celui qui lit votre plan est celui qui &eacute;crit l&rsquo;outil.</h2>
+        <h2 lang="en" data-wipe>The person who reads your drawing is the person who writes the tool.</h2>
+        <p class="lead" lang="fr">Je m&rsquo;appelle Ivan Perez et je dessine en CAO tous les jours&#8239;: t&ocirc;le pli&eacute;e, tol&eacute;rances, plans d&rsquo;atelier. Les outils de cette page, je les ai &eacute;crits moi-m&ecirc;me, de la lecture des fichiers jusqu&rsquo;au document final.</p>
+        <p class="lead" lang="en">My name is Ivan Perez and I work in CAD every day: sheet metal, tolerances, shop drawings. The tools on this page I wrote myself, from reading the files through to the finished document.</p>
+        <p lang="fr">C&rsquo;est ce qui change la premi&egrave;re conversation. Vous n&rsquo;avez pas &agrave; traduire votre m&eacute;tier pour quelqu&rsquo;un qui ne l&rsquo;a jamais pratiqu&eacute;, et il n&rsquo;y a personne &agrave; qui repasser le dossier ensuite.</p>
+        <p lang="en">That is what changes the first conversation. You do not have to translate your trade for somebody who has never practised it, and there is nobody to hand the file on to afterwards.</p>
+      </div>
+      <ul class="who__list" data-reveal>
+        <li>
+          <h3 lang="fr">Je lis un plan</h3><h3 lang="en">I read drawings</h3>
+          <p lang="fr">Cotes, tol&eacute;rances, marques GD&amp;T, d&eacute;velopp&eacute;s de t&ocirc;le. Sans traduction interm&eacute;diaire.</p>
+          <p lang="en">Dimensions, tolerances, GD&amp;T marks, sheet-metal flat patterns. With no translation in between.</p>
+        </li>
+        <li>
+          <h3 lang="fr">J&rsquo;&eacute;cris l&rsquo;outil</h3><h3 lang="en">I write the tool</h3>
+          <p lang="fr">Lecture des fichiers, r&egrave;gles, g&eacute;n&eacute;ration des documents, rapport final. Le tout en Python.</p>
+          <p lang="en">File reading, rules, document generation, final report. All of it in Python.</p>
+        </li>
+        <li>
+          <h3 lang="fr">Je vous le laisse</h3><h3 lang="en">I hand it over</h3>
+          <p lang="fr">Il tourne chez vous, sans moi. Un outil dont vous d&eacute;pendez n&rsquo;en est pas un.</p>
+          <p lang="en">It runs at your place, without me. A tool you depend on me for is not a tool.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="pillars" data-reveal>
+        <div class="pillars__title">
+          <h2 lang="fr" data-wipe>Vos fichiers, vos r&egrave;gles, votre r&eacute;seau.</h2>
+          <h2 lang="en" data-wipe>Your files, your rules, your network.</h2>
+        </div>
+        <div class="pillars__list">
+          <div class="pillar">
+            <h3 lang="fr">Vos fichiers</h3><h3 lang="en">Your files</h3>
+            <p lang="fr">Les formats que vous utilisez d&eacute;j&agrave;. Rien &agrave; convertir.</p>
+            <p lang="en">The formats you already use. Nothing to convert.</p>
+          </div>
+          <div class="pillar">
+            <h3 lang="fr">Vos r&egrave;gles</h3><h3 lang="en">Your rules</h3>
+            <p lang="fr">Celles de votre &eacute;quipe, &eacute;crites une fois pour toutes.</p>
+            <p lang="en">Your team&rsquo;s own, written down once and for all.</p>
+          </div>
+          <div class="pillar">
+            <h3 lang="fr">Votre r&eacute;seau</h3><h3 lang="en">Your network</h3>
+            <p lang="fr">L&rsquo;outil tourne chez vous. Aucun envoi vers l&rsquo;ext&eacute;rieur.</p>
+            <p lang="en">The tool runs in-house. Nothing is sent outside.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <figure class="media media--strip" data-reveal>
+      <img src="img/bureau.jpg" alt="" data-parallax width="1800" height="560">
+    </figure>
+  </div>
+
+  <section class="section" id="demarche">
+    <div class="wrap">
+      <div class="head head--stack" data-reveal>
+        <h2 lang="fr" data-wipe><span class="boxed">On commence petit, et sans engagement.</span></h2>
+        <h2 lang="en" data-wipe><span class="boxed">We start small, with nothing to commit to.</span></h2>
+      </div>
+
+      <div class="steps" data-reveal>
+        <div class="steps__rail" role="tablist" aria-orientation="vertical">
+          <button class="step is-active" role="tab" id="step-0" aria-controls="spanel-0" aria-selected="true" data-step="0">
+            <i>01</i><span lang="fr">On se parle trente minutes.</span><span lang="en">We talk for thirty minutes.</span>
+          </button>
+          <button class="step" role="tab" id="step-1" aria-controls="spanel-1" aria-selected="false" data-step="1">
+            <i>02</i><span lang="fr">Je vous dis ce qui s&rsquo;automatise.</span><span lang="en">I tell you what can be automated.</span>
+          </button>
+          <button class="step" role="tab" id="step-2" aria-controls="spanel-2" aria-selected="false" data-step="2">
+            <i>03</i><span lang="fr">J&rsquo;&eacute;cris l&rsquo;outil, vous le faites tourner.</span><span lang="en">I write the tool, you run it.</span>
+          </button>
+          <button class="step" role="tab" id="step-3" aria-controls="spanel-3" aria-selected="false" data-step="3">
+            <i>04</i><span lang="fr">On regarde la suivante &mdash; ou on s&rsquo;arr&ecirc;te l&agrave;.</span><span lang="en">We look at the next one &mdash; or we stop there.</span>
+          </button>
+        </div>
+
+        <div class="steps__panels">
+          <div class="spanel is-active" role="tabpanel" id="spanel-0" aria-labelledby="step-0" data-spanel="0">
+            <p class="tag"><span lang="fr">&Eacute;tape 01</span><span lang="en">Step 01</span></p>
+            <h3 lang="fr">On se parle trente minutes.</h3>
+            <h3 lang="en">We talk for thirty minutes.</h3>
+            <p class="lead" lang="fr">Vous d&eacute;crivez la t&acirc;che. Aucune pr&eacute;paration, aucun document &agrave; fournir, aucun engagement au bout.</p>
+            <p class="lead" lang="en">You describe the task. No preparation, nothing to send over, nothing to commit to at the end.</p>
+          </div>
+          <div class="spanel" role="tabpanel" id="spanel-1" aria-labelledby="step-1" data-spanel="1" hidden>
+            <p class="tag"><span lang="fr">&Eacute;tape 02</span><span lang="en">Step 02</span></p>
+            <h3 lang="fr">Je vous dis ce qui s&rsquo;automatise.</h3>
+            <h3 lang="en">I tell you what can be automated.</h3>
+            <p class="lead" lang="fr">Et surtout ce qui ne s&rsquo;automatise pas. C&rsquo;est gratuit, et parfois la r&eacute;ponse est non &mdash; c&rsquo;est une r&eacute;ponse utile aussi.</p>
+            <p class="lead" lang="en">And, above all, what cannot be. It costs nothing, and sometimes the answer is no &mdash; which is a useful answer too.</p>
+          </div>
+          <div class="spanel" role="tabpanel" id="spanel-2" aria-labelledby="step-2" data-spanel="2" hidden>
+            <p class="tag"><span lang="fr">&Eacute;tape 03</span><span lang="en">Step 03</span></p>
+            <h3 lang="fr">J&rsquo;&eacute;cris l&rsquo;outil, vous le faites tourner.</h3>
+            <h3 lang="en">I write the tool, you run it.</h3>
+            <p class="lead" lang="fr">Chez vous, sur votre r&eacute;seau, avec vos fichiers. Vos documents ne sortent pas de l&rsquo;entreprise.</p>
+            <p class="lead" lang="en">In-house, on your network, with your files. Your documents never leave the company.</p>
+          </div>
+          <div class="spanel" role="tabpanel" id="spanel-3" aria-labelledby="step-3" data-spanel="3" hidden>
+            <p class="tag"><span lang="fr">&Eacute;tape 04</span><span lang="en">Step 04</span></p>
+            <h3 lang="fr">On regarde la suivante &mdash; ou on s&rsquo;arr&ecirc;te l&agrave;.</h3>
+            <h3 lang="en">We look at the next one &mdash; or we stop there.</h3>
+            <p class="lead" lang="fr">Chaque &eacute;tape se juge sur la pr&eacute;c&eacute;dente. Rien n&rsquo;oblige &agrave; la suivante, et s&rsquo;arr&ecirc;ter est une issue normale.</p>
+            <p class="lead" lang="en">Each step is judged on the one before it. Nothing commits you to the next, and stopping is a normal outcome.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="questions">
+    <div class="wrap faq__grid">
+      <div class="faq__intro" data-reveal>
+        <h2 lang="fr" data-wipe>Ce qu&rsquo;on me demande avant de commencer.</h2>
+        <h2 lang="en" data-wipe>What people ask me before we start.</h2>
+        <span class="rule"></span>
+        <p lang="fr">Si la v&ocirc;tre n&rsquo;est pas ici, &eacute;crivez-la-moi. Je r&eacute;ponds m&ecirc;me quand la r&eacute;ponse est non.</p>
+        <p lang="en">If yours is not here, write it to me. I answer even when the answer is no.</p>
+      </div>
+
+      <div class="faq" data-reveal>
+        <div class="faq__item is-open">
+          <button class="faq__q" aria-expanded="true">
+            <span lang="fr">Est-ce que je dois changer de logiciel&#8239;?</span><span lang="en">Do I have to change software?</span><i></i>
+          </button>
+          <div class="faq__a"><div class="faq__inner">
+            <p lang="fr">Non. L&rsquo;outil se place autour de ce que vous utilisez d&eacute;j&agrave; et rend le r&eacute;sultat dans le m&ecirc;me format qu&rsquo;aujourd&rsquo;hui. Rien &agrave; migrer, personne &agrave; reformer.</p>
+            <p lang="en">No. The tool sits around what you already use and hands back the result in the same format as today. Nothing to migrate, nobody to retrain.</p>
+          </div></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span lang="fr">Est-ce que mes fichiers sortent de l&rsquo;entreprise&#8239;?</span><span lang="en">Do my files leave the company?</span><i></i>
+          </button>
+          <div class="faq__a"><div class="faq__inner">
+            <p lang="fr">Non. L&rsquo;outil s&rsquo;installe et tourne sur votre r&eacute;seau. Le traitement est local, et il fonctionne m&ecirc;me sans acc&egrave;s Internet.</p>
+            <p lang="en">No. The tool installs and runs on your own network. Processing is local and works even without internet access.</p>
+          </div></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span lang="fr">Combien &ccedil;a co&ucirc;te&#8239;?</span><span lang="en">What does it cost?</span><i></i>
+          </button>
+          <div class="faq__a"><div class="faq__inner">
+            <p lang="fr">Le premier &eacute;change ne co&ucirc;te rien, et le diagnostic qui suit se fait sur vos propres fichiers. Le montant d&eacute;pend enti&egrave;rement de l&rsquo;ampleur&#8239;: on le chiffre une fois qu&rsquo;on sait ce qu&rsquo;il y a &agrave; faire, pas avant.</p>
+            <p lang="en">The first conversation costs nothing, and the diagnosis that follows runs on your own files. The amount depends entirely on scope: we price it once we know what the work actually is, not before.</p>
+          </div></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span lang="fr">Et si la t&acirc;che ne s&rsquo;automatise pas&#8239;?</span><span lang="en">And if the task cannot be automated?</span><i></i>
+          </button>
+          <div class="faq__a"><div class="faq__inner">
+            <p lang="fr">Je vous le dis, et on s&rsquo;arr&ecirc;te l&agrave;. Une t&acirc;che qui change de r&egrave;gles &agrave; chaque fois, ou qui demande un jugement humain &agrave; chaque ligne, n&rsquo;est pas un bon candidat. Le dire t&ocirc;t vous &eacute;pargne un projet.</p>
+            <p lang="en">I will tell you, and we stop there. A task whose rules change every time, or that needs human judgement on every line, is not a good candidate. Saying so early saves you a project.</p>
+          </div></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span lang="fr">Qui garde l&rsquo;outil &agrave; la fin&#8239;?</span><span lang="en">Who keeps the tool at the end?</span><i></i>
+          </button>
+          <div class="faq__a"><div class="faq__inner">
+            <p lang="fr">Vous. Il s&rsquo;installe chez vous et il tourne sans moi. Les r&egrave;gles sont &eacute;crites dans un fichier que votre &eacute;quipe peut relire et modifier&#8239;: c&rsquo;est fait expr&egrave;s, pour que vous ne d&eacute;pendiez pas de moi &agrave; chaque changement de sp&eacute;cification.</p>
+            <p lang="en">You do. It installs at your place and runs without me. The rules live in a file your own team can read and change: that is deliberate, so that you are not tied to me every time a specification moves.</p>
+          </div></div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span lang="fr">Est-ce que c&rsquo;est de l&rsquo;ing&eacute;nierie&#8239;?</span><span lang="en">Is this engineering work?</span><i></i>
+          </button>
+          <div class="faq__a"><div class="faq__inner">
+            <p lang="fr">Non. Ce que je livre, ce sont des instruments de productivit&eacute;, utilis&eacute;s sous la responsabilit&eacute; professionnelle du client. Je n&rsquo;exerce aucune activit&eacute; r&eacute;serv&eacute;e au sens de la Loi sur les ing&eacute;nieurs ou de la Loi sur les architectes.</p>
+            <p lang="en">No. What I deliver are productivity instruments, used under the client&rsquo;s own professional responsibility. I perform no activity reserved under the Engineers Act or the Architects Act.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="wrap cta__grid">
+      <div class="cta__text" data-reveal>
+        <h2 lang="fr" data-wipe><span class="boxed boxed--light">Quelle t&acirc;che refaites-vous &agrave; la main&#8239;?</span></h2>
+        <h2 lang="en" data-wipe><span class="boxed boxed--light">Which task do you redo by hand?</span></h2>
+        <p class="lead" lang="fr">C&rsquo;est la seule question &agrave; laquelle il faut r&eacute;pondre pour commencer. D&eacute;crivez-la en deux lignes&#8239;: je vous dis si elle s&rsquo;automatise, et si la r&eacute;ponse est non, je vous le dis aussi.</p>
+        <p class="lead" lang="en">That is the only question you need to answer to start. Describe it in two lines: I will tell you whether it can be automated &mdash; and if the answer is no, I will tell you that too.</p>
+
+        <div class="cta__direct">
+          <div class="cta__mail">
+            <a href="mailto:joseivanperezdiaz1@gmail.com">
+              <svg class="ico" aria-hidden="true"><use href="#i-mail"></use></svg>
+              joseivanperezdiaz1@gmail.com
+            </a>
+            <button class="btn btn--mini" id="copyMail" type="button" data-mail="joseivanperezdiaz1@gmail.com">
+              <svg class="ico" aria-hidden="true"><use href="#i-copy"></use></svg>
+              <span class="copy__label" lang="fr">Copier</span><span class="copy__label" lang="en">Copy</span>
+            </button>
+          </div>
+          <p class="cta__place">FR / EN</p>
+        </div>
+      </div>
+
+      <form class="form" id="contactForm" novalidate data-reveal>
+        <div class="field">
+          <label for="f-name"><span lang="fr">Nom</span><span lang="en">Name</span> <span aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+          <p class="error" data-error-for="f-name"></p>
+        </div>
+        <div class="field">
+          <label for="f-company"><span lang="fr">Entreprise</span><span lang="en">Company</span></label>
+          <input id="f-company" name="company" type="text" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="f-mail"><span lang="fr">Courriel</span><span lang="en">Email</span> <span aria-hidden="true">*</span></label>
+          <input id="f-mail" name="email" type="email" autocomplete="email" required>
+          <p class="error" data-error-for="f-mail"></p>
+        </div>
+        <div class="field">
+          <label for="f-task"><span lang="fr">La t&acirc;che, en deux lignes</span><span lang="en">The task, in two lines</span> <span aria-hidden="true">*</span></label>
+          <textarea id="f-task" name="task" rows="4" required></textarea>
+          <p class="error" data-error-for="f-task"></p>
+        </div>
+        <button class="btn btn--light btn--lg btn--block" type="submit">
+          <span lang="fr">Envoyer</span><span lang="en">Send</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </button>
+        <p class="form__note" id="formNote" role="status">
+          <span lang="fr">Le bouton ouvre votre logiciel de courriel avec le message d&eacute;j&agrave; r&eacute;dig&eacute;. Rien n&rsquo;est envoy&eacute; sans que vous le voyiez.</span>
+          <span lang="en">The button opens your email program with the message already written. Nothing is sent without you seeing it.</span>
+        </p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div class="foot__brand">
+      <a class="nav__brand" href="#hero"><span class="mark mark--light">IP</span><span class="nav__name"><strong>Ivan Perez</strong></span></a>
+      <p lang="fr">Automatiser ce qui vous ralentit.</p>
+      <p lang="en">Automating what slows you down.</p>
+    </div>
+    <nav class="foot__nav" aria-label="Plan">
+      <p class="eyebrow eyebrow--dark"><span lang="fr">Plan</span><span lang="en">Sitemap</span></p>
+      <a href="#probleme"><span lang="fr">Le probl&egrave;me</span><span lang="en">The problem</span></a>
+      <a href="#faire"><span lang="fr">Ce que je fais</span><span lang="en">What I do</span></a>
+      <a href="#preuves"><span lang="fr">Ce que j&rsquo;ai construit</span><span lang="en">What I have built</span></a>
+      <a href="#demarche"><span lang="fr">La d&eacute;marche</span><span lang="en">How it works</span></a>
+      <a href="#questions"><span lang="fr">Questions</span><span lang="en">Questions</span></a>
+      <a href="#contact"><span lang="fr">Contact</span><span lang="en">Contact</span></a>
+    </nav>
+    <div class="foot__legal">
+      <p class="eyebrow eyebrow--dark"><span lang="fr">Cadre professionnel</span><span lang="en">Professional framework</span></p>
+      <p lang="fr">Les livrables fournis sont des instruments de productivit&eacute; utilis&eacute;s sous la responsabilit&eacute; professionnelle du client. Ivan Perez n&rsquo;exerce aucune activit&eacute; r&eacute;serv&eacute;e au sens de la Loi sur les ing&eacute;nieurs ou de la Loi sur les architectes.</p>
+      <p lang="en">The deliverables provided are productivity instruments, used under the client&rsquo;s own professional responsibility. Ivan Perez performs no activity reserved under the Engineers Act or the Architects Act.</p>
+    </div>
+  </div>
+  <div class="wrap foot__bar">
+    <p class="eyebrow eyebrow--dark">FR / EN</p>
+    <p>&copy; <span id="year">2026</span> Ivan Perez</p>
+  </div>
+</footer>
+
+<button class="totop" id="toTop" type="button" aria-label="Top">
+  <svg class="ico" aria-hidden="true"><use href="#i-arrow-up"></use></svg>
+</button>
+
+<script src="js/main.js"></script>
+</body>
+</html>
