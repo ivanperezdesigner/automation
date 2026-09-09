@@ -504,7 +504,9 @@ html[data-lang="en"] [lang="fr"] { display: none !important; }
    does not jump under the visitor at the moment they finish. */
 .form.is-done > *:not(.form__done) { display: none; }
 .form__done { display: flex; flex-direction: column; gap: 14px; padding: 8px 0; }
-.form__done-ico { width: 26px; height: 26px; color: var(--accent-light); }
+/* The .ico class carries fill:none and stroke:currentColor; the Lucide
+   check is a stroked path and renders as a black blob without them. */
+.form__done-ico { width: 26px; height: 26px; stroke-width: 2.5; color: var(--accent-light); }
 .form__done-lead { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--paper); }
 .form__done-text { font-size: 14px; line-height: 1.6; color: var(--text-dark-mute); }
 .form__done-text b { color: var(--paper-mute); font-weight: 600; }

@@ -75,8 +75,8 @@ hay paso de build.** La única condición es subir la carpeta entera, porque las
 `index.html` referencia los estáticos con una marca de versión:
 
 ```html
-<link rel="stylesheet" href="css/styles.css?v=2026-09-09">
-<script src="js/main.js?v=2026-09-09"></script>
+<link rel="stylesheet" href="css/styles.css?v=2026-09-09c">
+<script src="js/main.js?v=2026-09-09c"></script>
 ```
 
 **Hay que subirla cada vez que cambie `styles.css` o `main.js`.** No es cosmética: se
@@ -268,49 +268,65 @@ Vienen del repositorio, contados el 2026-09-09, no de la memoria:
 
 ## El formulario
 
-`index.html` lleva un formulario de cuatro campos. **No hay servidor detrás.** Al enviar,
-el JS valida y construye un `mailto:` con el asunto y el cuerpo ya redactados: se abre el
-cliente de correo del visitante y el mensaje **no sale hasta que él lo envía**. Eso está
-dicho debajo del botón.
+`index.html` lleva un formulario de cuatro campos. **El mensaje llega directamente al
+correo de Ivan.**
 
-### El `mailto:` no basta solo
+**Una página en GitHub Pages no puede enviar correo por sí misma**: sirve archivos
+estáticos y nada más. Hace falta alguien que reciba el POST y lo reenvíe. Ese alguien es
+**Web3Forms**, elegido por Ivan el 2026-09-09 sobre Formspree y sobre un Worker propio,
+porque **no exige crear una cuenta**: se pide una clave con el correo y llega por correo.
 
-**Un navegador sin cliente de correo asociado descarta un `mailto:` en silencio**: ni
-error, ni diálogo, ni nada. El botón se lee como roto. Es lo normal en Windows 11 cuando
-se usa Gmail en el navegador y nunca se instaló Outlook. Ivan lo reportó el 2026-09-09 y
-se reprodujo en la página publicada.
+| | |
+|---|---|
+| Endpoint | `https://api.web3forms.com/submit` |
+| Plan | gratuito, 250 envíos al mes |
+| Antispam | campo `botcheck` oculto, el honeypot del servicio |
 
-El arreglo no cambia el mecanismo, le añade una salida:
+### La clave va visible en el HTML, y está bien
 
-1. Se dispara el `mailto:` como antes.
-2. **Perder el foco de la ventana es la única señal** de que un cliente abrió de verdad.
-   A los 1500 ms se comprueba, contando también `document.visibilityState`.
-3. **El mensaje aparece en la página en los dos casos**, en un `<textarea>` de solo
-   lectura con un botón de copiar. Lo único que cambia es la entradilla: *« Si rien ne
-   s'est ouvert… »* cuando sí abrió, *« Ce navigateur n'a pas de logiciel de courriel »*
-   cuando no.
+```html
+<input type="hidden" name="access_key" value="db3a79a0-...">
+```
 
-Así el visitante que estaba listo para escribir nunca se queda sin camino, que en una
-página de puerta fría es justo el que no se puede perder.
+**No es una credencial.** Lo único que permite es entregar correo a la dirección que la
+posee. Quien la copie solo puede escribirle a Ivan, que es lo que ya hace el formulario.
+No da acceso a nada, ni revela nada.
+
+### Cómo se comporta
+
+1. La validación es la misma de antes y corre **antes** de tocar la red.
+2. Se envía por `fetch`, sin recargar. El botón se deshabilita y pasa a *« Envoi… »*.
+3. **Al confirmar el servidor**, el formulario se sustituye por la confirmación
+   `#formDone` — la clase `.is-done` oculta a todos sus hermanos, así que la caja grafito
+   conserva su sitio y la página no salta bajo el visitante.
+4. Si falla, sale el aviso de error **y no se borra nada**. `form.reset()` va después de
+   la confirmación, nunca antes: un envío fallido deja cada palabra donde el visitante la
+   escribió. Es donde falla la mayoría de las landing pages.
+
+El `<form>` conserva `action` y `method`, así que **sigue enviando con el JavaScript
+desactivado**: en ese caso el navegador hace el POST nativo y Web3Forms muestra su propia
+página de gracias.
+
+### Lo que se retiró
+
+Todo el camino `mailto:` — y con él el bloque de texto a copiar que existió unas horas el
+2026-09-09. Ese bloque resolvía un problema real (un navegador sin cliente de correo
+descarta un `mailto:` en silencio), pero Ivan lo quiso fuera: en una landing page el
+visitante espera escribir y darle a enviar, no copiar un texto a mano.
 
 ### Los avisos guardan su idioma
 
 `showNote` escribía en `note.textContent`, lo que **borraba los dos `<span lang>`** de
-`#formNote`. Tras el primer envío la nota quedaba en un solo idioma y el selector ya no
-la alcanzaba. Ahora escribe dentro de cada span, uno por idioma. Los `.error` de cada
-campo sí son de un solo idioma por construcción: llevan un `data-error-key` y
-`refreshErrors()` los repinta cuando se cambia de idioma.
+`#formNote`: tras el primer envío la nota quedaba en un solo idioma y el selector ya no la
+alcanzaba. Ahora escribe dentro de cada span. Los `.error` de cada campo sí son de un
+idioma por construcción: llevan `data-error-key` y `refreshErrors()` los repinta al
+cambiar de idioma.
 
-### Si algún día se quiere recepción directa
+### Un punto abierto
 
-Sin servidor detrás no hay más opciones que esta sin dar de alta un servicio ni exponer
-una clave. Si se quiere, se cambia una sola línea:
-
-- **Formspree** — `<form action="https://formspree.io/f/XXXX" method="POST">` y quitar el
-  `event.preventDefault()` del envío.
-- **Netlify Forms** — añadir `netlify` al `<form>` si el hosting es Netlify.
-
-Ambas requieren cuenta en un tercero, y por eso no están puestas.
+Los datos del visitante **pasan por Web3Forms**, que está fuera de Quebec. Con la Loi 25
+en vigor, si la página crece conviene una línea diciendo dónde se tratan. Para un
+formulario de contacto de cuatro campos el riesgo es menor, pero está anotado.
 
 ## Decisiones tomadas
 
