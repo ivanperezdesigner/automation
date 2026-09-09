@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/styles.css?v=2026-09-09">
+<link rel="stylesheet" href="css/styles.css?v=2026-09-09b">
 </head>
 <body>
 
@@ -584,7 +584,9 @@
         </div>
       </div>
 
-      <form class="form" id="contactForm" novalidate data-reveal>
+      <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate data-reveal>
+        <input type="hidden" name="access_key" value="db3a79a0-bd26-45ee-afbd-6119a62dfb4e">
+        <input type="checkbox" name="botcheck" style="display: none;" tabindex="-1" aria-hidden="true">
         <div class="field">
           <label for="f-name"><span lang="fr">Nom</span><span lang="en">Name</span> <span aria-hidden="true">*</span></label>
           <input id="f-name" name="name" type="text" autocomplete="name" required>
@@ -609,25 +611,20 @@
           <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
         </button>
         <p class="form__note" id="formNote" role="status">
-          <span lang="fr">Le bouton ouvre votre logiciel de courriel avec le message d&eacute;j&agrave; r&eacute;dig&eacute;. Rien n&rsquo;est envoy&eacute; sans que vous le voyiez.</span>
-          <span lang="en">The button opens your email program with the message already written. Nothing is sent without you seeing it.</span>
+          <span lang="fr">Le message nous arrive directement. Vos coordonn&eacute;es ne servent qu&rsquo;&agrave; vous r&eacute;pondre.</span>
+          <span lang="en">The message reaches us directly. Your details are used only to reply to you.</span>
         </p>
 
-        <div class="form__fallback" id="formFallback" hidden>
-          <p class="form__fallback-lead" id="fallbackOpened" hidden>
-            <span lang="fr">Si rien ne s&rsquo;est ouvert, voici le message. Copiez-le et envoyez-le &agrave; <b>joseivanperezdiaz1@gmail.com</b>.</span>
-            <span lang="en">If nothing opened, here is the message. Copy it and send it to <b>joseivanperezdiaz1@gmail.com</b>.</span>
+        <div class="form__done" id="formDone" tabindex="-1" hidden>
+          <svg class="form__done-ico" aria-hidden="true"><use href="#i-check"></use></svg>
+          <p class="form__done-lead">
+            <span lang="fr">Message re&ccedil;u.</span>
+            <span lang="en">Message received.</span>
           </p>
-          <p class="form__fallback-lead" id="fallbackNone" hidden>
-            <span lang="fr">Ce navigateur n&rsquo;a pas de logiciel de courriel associ&eacute;. Voici le message&nbsp;: copiez-le et envoyez-le &agrave; <b>joseivanperezdiaz1@gmail.com</b>.</span>
-            <span lang="en">This browser has no email program attached. Here is the message: copy it and send it to <b>joseivanperezdiaz1@gmail.com</b>.</span>
+          <p class="form__done-text">
+            <span lang="fr">Nous vous r&eacute;pondons &agrave; l&rsquo;adresse que vous avez laiss&eacute;e. Si c&rsquo;est plus simple, &eacute;crivez-nous directement &agrave; <b>joseivanperezdiaz1@gmail.com</b>.</span>
+            <span lang="en">We will reply to the address you left. If it is easier, write to us straight at <b>joseivanperezdiaz1@gmail.com</b>.</span>
           </p>
-          <textarea class="form__fallback-text" id="formFallbackText" rows="9" readonly></textarea>
-          <button class="btn btn--mini btn--block" id="copyMessage" type="button">
-            <span class="copy__label" lang="fr">Copier le message</span>
-            <span class="copy__label" lang="en">Copy the message</span>
-            <svg class="ico" aria-hidden="true"><use href="#i-copy"></use></svg>
-          </button>
         </div>
       </form>
     </div>
@@ -667,6 +664,6 @@
   <svg class="ico" aria-hidden="true"><use href="#i-arrow-up"></use></svg>
 </button>
 
-<script src="js/main.js?v=2026-09-09"></script>
+<script src="js/main.js?v=2026-09-09b"></script>
 </body>
 </html>

@@ -21,12 +21,10 @@
       needMail: "Une adresse courriel valide, pour que nous puissions répondre.",
       needTask: "Décrivez la tâche en une phrase au moins.",
       missing: "Il manque encore quelque chose ci-dessus.",
-      sent: "Votre logiciel de courriel s'ouvre avec le message prêt. Il ne part que quand vous l'envoyez.",
-      noClient: "Rien ne s'est ouvert : ce navigateur n'a pas de logiciel de courriel.",
-      copyMessage: "Message copié",
-      subjectLine: "Objet :",
-      subject: "Une tâche à automatiser",
-      greeting: "Bonjour Ivan,"
+      sending: "Envoi en cours…",
+      btnSending: "Envoi…",
+      failed: "L'envoi a échoué. Réessayez, ou écrivez-nous à joseivanperezdiaz1@gmail.com.",
+      subject: "Une tâche à automatiser"
     },
     en: {
       htmlLang: "en",
@@ -40,12 +38,10 @@
       needMail: "A valid email address, so that we can answer.",
       needTask: "Describe the task in at least one sentence.",
       missing: "Something is still missing above.",
-      sent: "Your email program opens with the message ready. It only goes when you send it.",
-      noClient: "Nothing opened: this browser has no email program attached.",
-      copyMessage: "Message copied",
-      subjectLine: "Subject:",
-      subject: "A task to automate",
-      greeting: "Hello Ivan,"
+      sending: "Sending…",
+      btnSending: "Sending…",
+      failed: "Sending failed. Try again, or write to us at joseivanperezdiaz1@gmail.com.",
+      subject: "A task to automate"
     }
   };
 
@@ -382,11 +378,11 @@
 
   var form = document.getElementById("contactForm");
   var note = document.getElementById("formNote");
-  var fallback = document.getElementById("formFallback");
-  var fallbackText = document.getElementById("formFallbackText");
-  var fallbackOpened = document.getElementById("fallbackOpened");
-  var fallbackNone = document.getElementById("fallbackNone");
-  var mailTo = "joseivanperezdiaz1@gmail.com";
+  var done = document.getElementById("formDone");
+  var submitButton = form ? form.querySelector("button[type=submit]") : null;
+  var submitLabels = submitButton ? submitButton.querySelectorAll("span[lang]") : [];
+  var submitIdle = Array.prototype.map.call(submitLabels, function (node) { return node.textContent; });
+  var sending = false;
 
   function showError(input, key) {
     var field = input.closest(".field");
@@ -427,12 +423,14 @@
     });
   }
 
-  function revealFallback(text, opened) {
-    if (!fallback) { return; }
-    fallbackText.value = text;
-    fallbackOpened.hidden = !opened;
-    fallbackNone.hidden = opened;
-    fallback.hidden = false;
+  function setSending(on) {
+    sending = on;
+    if (!submitButton) { return; }
+    submitButton.disabled = on;
+    Array.prototype.forEach.call(submitLabels, function (node, index) {
+      var code = node.getAttribute("lang") === "en" ? "en" : "fr";
+      node.textContent = on ? STRINGS[code].btnSending : submitIdle[index];
+    });
   }
 
   if (form) {
@@ -442,6 +440,7 @@
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
+      if (sending) { return; }
 
       var name = form.elements.name;
       var email = form.elements.email;
@@ -461,60 +460,35 @@
         return;
       }
 
-      var subject = t("subject") + (company.value.trim() ? " — " + company.value.trim() : "");
-      var body = [
-        t("greeting"),
-        "",
-        task.value.trim(),
-        "",
-        "--",
-        name.value.trim(),
-        company.value.trim(),
-        email.value.trim()
-      ].filter(function (line) { return line !== ""; }).join("\r\n");
+      /* The page is static, so it cannot send mail itself: Web3Forms takes
+         the post and forwards it. The access key sits in the markup on
+         purpose - it only lets a sender deliver to the address that owns it.
+         The subject is set here so the inbox shows the company name. */
+      var payload = new FormData(form);
+      payload.set("subject", t("subject") + (company.value.trim() ? " — " + company.value.trim() : ""));
+      payload.set("from_name", name.value.trim());
 
-      /* A browser with no mail handler drops a mailto: without a word: no
-         error, no dialog, nothing at all, so the button reads as broken.
-         Losing focus is the only sign a client really opened. Either way the
-         message goes on the page, and the lead says which happened. */
-      var opened = false;
-      function markOpened() { opened = true; }
-      window.addEventListener("blur", markOpened, { once: true });
+      setSending(true);
+      showNote("sending", false);
 
-      window.location.href = "mailto:" + mailTo +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-      window.setTimeout(function () {
-        window.removeEventListener("blur", markOpened);
-        if (document.visibilityState === "hidden") { opened = true; }
-        showNote(opened ? "sent" : "noClient", opened);
-        revealFallback(t("subjectLine") + " " + subject + "\r\n\r\n" + body, opened);
-      }, 1500);
-    });
-  }
-
-  /* --------------------------------------------------- copy the message */
-
-  var copyMessage = document.getElementById("copyMessage");
-
-  if (copyMessage) {
-    var msgLabels = copyMessage.querySelectorAll(".copy__label");
-    var msgOriginals = Array.prototype.map.call(msgLabels, function (node) { return node.textContent; });
-
-    copyMessage.addEventListener("click", function () {
-      var done = function () {
-        Array.prototype.forEach.call(msgLabels, function (node) { node.textContent = t("copyMessage"); });
-        window.setTimeout(function () {
-          Array.prototype.forEach.call(msgLabels, function (node, index) { node.textContent = msgOriginals[index]; });
-        }, 2000);
-      };
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(fallbackText.value).then(done, function () { fallbackText.select(); });
-      } else {
-        fallbackText.select();
-      }
+      window.fetch(form.action, { method: "POST", body: payload })
+        .then(function (response) {
+          return response.json().then(function (result) {
+            if (!response.ok || !result.success) { throw new Error("refused"); }
+          });
+        })
+        .then(function () {
+          /* Nothing is reset before this point, so a failed send leaves every
+             word the visitor wrote exactly where they left it. */
+          form.reset();
+          done.hidden = false;
+          form.classList.add("is-done");
+          done.focus();
+        })
+        .catch(function () {
+          showNote("failed", false);
+        })
+        .then(function () { setSending(false); });
     });
   }
 

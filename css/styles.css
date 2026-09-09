@@ -500,20 +500,15 @@ html[data-lang="en"] [lang="fr"] { display: none !important; }
 .form__note { font-size: 12px; line-height: 1.55; color: var(--text-dark-mute); }
 .form__note.is-ok { color: var(--accent-light); }
 
-/* The message stays on the page when the browser has nowhere to hand a
-   mailto:, so the visitor can still copy it out. */
-.form__fallback {
-  display: flex; flex-direction: column; gap: 12px;
-  margin-top: 4px; padding-top: 20px; border-top: 1px solid var(--line-dark);
-}
-.form__fallback-lead { font-size: 12px; line-height: 1.55; color: var(--text-dark-mute); }
-.form__fallback-lead b { color: var(--paper-mute); font-weight: 600; }
-.form__fallback-text {
-  font-family: inherit; font-size: 14px; line-height: 1.5; color: var(--paper-mute);
-  background: #242424; border: 1px solid var(--line-dark); padding: 14px 16px;
-  resize: vertical; width: 100%;
-}
-.form__fallback-text:focus { outline: 0; border-color: var(--accent-light); }
+/* On success the box keeps its shape and swaps its contents, so the page
+   does not jump under the visitor at the moment they finish. */
+.form.is-done > *:not(.form__done) { display: none; }
+.form__done { display: flex; flex-direction: column; gap: 14px; padding: 8px 0; }
+.form__done-ico { width: 26px; height: 26px; color: var(--accent-light); }
+.form__done-lead { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--paper); }
+.form__done-text { font-size: 14px; line-height: 1.6; color: var(--text-dark-mute); }
+.form__done-text b { color: var(--paper-mute); font-weight: 600; }
+.btn[disabled] { opacity: 0.55; cursor: default; }
 
 /* ------------------------------------------------------------------ foot */
 
