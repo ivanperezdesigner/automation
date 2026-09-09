@@ -315,6 +315,12 @@ Ambas requieren cuenta en un tercero, y por eso no están puestas.
 - **La página habla en primera persona del plural.** Decisión de Ivan del 2026-09-09:
   « nous écrivons », « nous lisons », « Décrivez-nous la tâche ». Antes hablaba en
   singular, a nombre propio.
+  - **El motivo, y es lo que hace que el plural sea honesto:** Ivan puede incorporar a
+    otras personas de otras disciplinas durante un encargo. « Nous » deja ese sitio
+    abierto en vez de prometer un equipo permanente. No inventa ninguna empresa ni ningún
+    nombre comercial, así que no choca con la regla de no inventar una empresa; matiza
+    « Ivan opera a nombre propio » de `fam_param/CLAUDE.md`, que sigue siendo cierto
+    para la facturación y la responsabilidad profesional.
   - **Las preguntas del FAQ siguen en singular**, porque ahí quien habla es el visitante:
     « Est-ce que **je** dois changer de logiciel ? », « Est-ce que **mes** fichiers sortent
     de l'entreprise ? ». Cambiarlas habría hecho que el lector se preguntara por los
@@ -360,10 +366,6 @@ sirven archivos estáticos y ninguna necesita build para esta página.
   cada fotograma, y el acordeón necesita `max-height`. La barra de progreso sí se
   corrigió: ahora escala con `transform` en vez de cambiar de ancho, porque esa sí se
   repintaba en cada fotograma de scroll.
-- **El plural contradice « Ivan opera a nombre propio »**, la identidad registrada en
-  `fam_param/CLAUDE.md`. No inventa ninguna empresa ni ningún nombre comercial, y usar
-  « nous » siendo independiente es una convención corriente, pero la contradicción queda
-  anotada aquí en vez de resolverse en silencio.
 - **El caso 4 (anidado) no aparece.** Sigue abierto y no tiene resultados que enseñar.
   Cuando los tenga, entra como cuarto bloque de `#preuves` y las cifras de arriba suben a
   cinco columnas o se reagrupan.
