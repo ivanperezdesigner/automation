@@ -70,6 +70,27 @@ Cloudflare Pages, GitHub Pages, o el `public_html` de un hosting clásico por FT
 hay paso de build.** La única condición es subir la carpeta entera, porque las rutas de
 `css/`, `js/` e `img/` son relativas.
 
+## La versión en los enlaces de `css` y `js`
+
+`index.html` referencia los estáticos con una marca de versión:
+
+```html
+<link rel="stylesheet" href="css/styles.css?v=2026-09-09">
+<script src="js/main.js?v=2026-09-09"></script>
+```
+
+**Hay que subirla cada vez que cambie `styles.css` o `main.js`.** No es cosmética: se
+pagó el 2026-09-09. Al publicar el arreglo del formulario, el navegador sirvió el
+`index.html` nuevo junto con el `main.js` viejo de su caché. El HTML tenía el bloque de
+respaldo pero el JS no sabía rellenarlo: la página quedó a medias, en un estado que no
+existe en el repositorio y que es muy difícil de diagnosticar.
+
+GitHub Pages sirve los estáticos con una caché corta, así que sin la marca el desajuste
+se corrige solo en unos minutos — pero durante esos minutos la página está rota para
+quien ya la había visitado, que es justo el que vuelve porque le interesó.
+
+Basta la fecha del cambio. No hace falta un hash ni un paso de build.
+
 ## Lo que hace el JavaScript
 
 Todo está en `js/main.js`, en una IIFE, sin dependencias:
