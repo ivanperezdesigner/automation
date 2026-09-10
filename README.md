@@ -75,8 +75,8 @@ hay paso de build.** La única condición es subir la carpeta entera, porque las
 `index.html` referencia los estáticos con una marca de versión:
 
 ```html
-<link rel="stylesheet" href="css/styles.css?v=2026-09-09d">
-<script src="js/main.js?v=2026-09-09d"></script>
+<link rel="stylesheet" href="css/styles.css?v=2026-09-10">
+<script src="js/main.js?v=2026-09-10"></script>
 ```
 
 **Hay que subirla cada vez que cambie `styles.css` o `main.js`.** No es cosmética: se
@@ -90,6 +90,60 @@ se corrige solo en unos minutos — pero durante esos minutos la página está r
 quien ya la había visitado, que es justo el que vuelve porque le interesó.
 
 Basta la fecha del cambio. No hace falta un hash ni un paso de build.
+
+## La página de confidencialidad
+
+`politique-confidentialite.html`, añadida el 2026-09-10 a petición de Ivan. Bilingüe,
+enlazada desde el pie de las dos páginas, y con la misma cabecera y pie que la portada —
+por eso reutiliza `main.js` sin tocarlo.
+
+**Nueve secciones**, que cubren lo que la Loi 25 exige a una empresa privada de Quebec:
+quién es el responsable y cómo contactarlo, qué se recoge y por qué, quién tiene acceso,
+cuánto se conserva, los tiempos de respuesta, los derechos (acceso, rectificación,
+retirada del consentimiento, portabilidad, queja), la vía hacia la Commission d'accès à
+l'information, y el procedimiento en caso de incidente.
+
+**El responsable es Ivan Perez a título personal.** La ley se lo asigna por defecto a la
+persona de más alta autoridad, y aquí no hay ninguna otra. El nombre y el correo van
+publicados, que es lo que la ley pide.
+
+Dos cifras van escritas y hay que sostenerlas: **doce meses** de conservación tras la
+última respuesta, y **treinta días** para contestar una solicitud de acceso. Los treinta
+días los fija la ley; los doce meses son una decisión, y se puede cambiar.
+
+## Por qué no hay banner de cookies
+
+**Porque la página no pone ni una cookie.** Se comprobó el 2026-09-10: ni
+`document.cookie`, ni analítica, ni píxel, ni botón social. Lo único que guarda es
+`localStorage["ip-lang"]`, la preferencia de idioma, que no identifica, no localiza y no
+perfila — no entra en el consentimiento del artículo 8.1.
+
+Un banner en una página sin cookies es decorado, y sugiere un rastreo que no existe.
+
+**El consentimiento que sí faltaba era otro: Google Fonts.** El `<link>` a
+`fonts.googleapis.com` enviaba la IP de cada visitante a Google antes de que tocara nada.
+Ivan eligió el 2026-09-10 **alojar la tipografía**, que resuelve el problema en vez de
+pedir permiso para él.
+
+## Las tipografías
+
+`fonts/montserrat-latin.woff2` y `fonts/montserrat-latin-ext.woff2`, **106 KB en total**,
+declaradas con dos `@font-face` al principio de `styles.css`.
+
+**Son dos ficheros, no ocho.** Google sirve Montserrat como **fuente variable**: los
+cuatro pesos que pedía el enlace (400, 500, 600, 700) resultaron ser el mismo fichero byte
+a byte — se comprobó con un hash MD5. Un solo fichero por subconjunto cubre el rango
+`font-weight: 400 700`. Descargar los ocho habría pesado 424 KB para el mismo resultado.
+
+Los `unicode-range` se copiaron de la hoja que sirve Google, no de memoria. El subconjunto
+`latin-ext` hace falta: `œ` de *Cœur* y *sœur* no está en `latin`.
+
+**Licencia:** Montserrat es SIL OFL 1.1, que permite expresamente alojarla y redistribuirla.
+Este punto sí importa en este repositorio.
+
+Esto devuelve al sitio la regla **«Nada de CDN»** del `CLAUDE.md` de la raíz, que se había
+relajado solo para esta página. Ahora la landing no hace **ninguna** petición externa al
+cargar: la única es a Web3Forms, y solo cuando alguien pulsa Envoyer.
 
 ## Lo que hace el JavaScript
 

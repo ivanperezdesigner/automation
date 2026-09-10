@@ -1,3 +1,24 @@
+/* Montserrat, served from this repository so that no visitor's address
+   reaches a third party before they have asked for anything. One variable
+   file per subset covers 400 to 700 - Google's four weights were the same
+   bytes. Licence SIL OFL 1.1, which allows this. */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../fonts/montserrat-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../fonts/montserrat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ==========================================================================
    Ivan Perez - landing page
    Palette and type follow presentation/ and prospection/:
@@ -674,4 +695,47 @@ html.js [data-reveal].is-in {
   html.js [data-wipe] { clip-path: none; transform: none; }
   .sign::before { transform: scaleX(1); }
   .art * { opacity: 1 !important; transform: none !important; }
+}
+
+/* ---------------------------------------------------------- legal page */
+
+.legal { padding: 84px 0 96px; }
+.legal__wrap { max-width: 780px; }
+.legal h1 {
+  font-size: clamp(34px, 3.6vw, 52px); line-height: 1.16;
+  letter-spacing: -0.035em; margin: 14px 0 26px;
+}
+.legal .lead { max-width: 66ch; }
+.legal .lead + .lead { margin-top: 0; }
+.legal__date {
+  margin-top: 30px; padding: 15px 20px;
+  background: var(--paper-soft); border-left: 3px solid var(--accent);
+  font-size: 14px; line-height: 1.6; color: var(--text-soft);
+}
+.legal__block { margin-top: 52px; padding-top: 32px; border-top: 1px solid var(--line-soft); }
+.legal__block h2 {
+  font-size: clamp(21px, 1.8vw, 27px); line-height: 1.3;
+  letter-spacing: -0.022em; margin-bottom: 20px;
+}
+.legal__block p { margin-bottom: 15px; max-width: 66ch; line-height: 1.68; color: var(--text-soft); }
+.legal__block p b { color: var(--text); }
+.legal__block p:last-child { margin-bottom: 0; }
+.legal__list { list-style: none; display: flex; flex-direction: column; gap: 13px; margin: 6px 0 20px; }
+.legal__list li { position: relative; padding-left: 22px; line-height: 1.6; max-width: 64ch; color: var(--text-soft); }
+.legal__list li b { color: var(--text); }
+.legal__list li::before {
+  content: ""; position: absolute; left: 0; top: 0.6em;
+  width: 7px; height: 7px; background: var(--accent);
+}
+/* the one paragraph a reader must not skim past */
+.legal__flag { border-left: 3px solid var(--accent); padding-left: 17px; }
+.legal__mail { display: flex; align-items: center; gap: 10px; margin-top: 20px; font-weight: 600; }
+.legal__mail a { color: var(--accent-dark); }
+.legal__mail a:hover { text-decoration: underline; }
+.legal__block a { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
+.legal__back { margin-top: 58px; }
+
+@media (max-width: 640px) {
+  .legal { padding: 56px 0 72px; }
+  .legal__block { margin-top: 40px; padding-top: 26px; }
 }
